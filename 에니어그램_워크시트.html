@@ -275,9 +275,7 @@ table{font-size:8.7pt;min-width:0} th,td{padding:5px 7px}
 footer{font-size:7.5pt}
 }
 .home-actions{display:flex;gap:6px;align-items:center}
-.home-link{width:34px;height:34px;border:1px solid var(--line);border-radius:999px;background:#fff;display:inline-grid;place-items:center;text-decoration:none;flex:0 0 auto}
-.home-icon{position:relative;width:14px;height:11px;border:2px solid var(--ink);border-top:0;border-radius:2px;display:block}
-.home-icon::before{content:"";position:absolute;left:1px;top:-8px;width:10px;height:10px;border-left:2px solid var(--ink);border-top:2px solid var(--ink);transform:rotate(45deg)}
+.home-link{height:34px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:#fff;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;flex:0 0 auto;font-size:12px;font-weight:850}
 </style>
 <style id="readability-overrides">
 /* =========================================================
@@ -4918,7 +4916,7 @@ p.meaning-highlight,
   .section-drawer.open{transform:translateX(0)}
   .section-drawer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
   .section-drawer-head strong{font-size:15px;letter-spacing:-.03em}
-  .section-drawer-close{width:34px;height:34px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:18px;line-height:1}
+  .section-drawer-close{height:34px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:18px;line-height:1}
 }
 @media print{.section-sidebar,.section-menu-toggle,.section-drawer,.section-drawer-backdrop{display:none!important}.worksheet-layout{display:block;max-width:none;padding:0}.worksheet-layout>.wrap{max-width:none;padding:0}}
 </style><style id="mobile-hero-list-fix">
@@ -4941,7 +4939,7 @@ p.meaning-highlight,
 </style></head>
 <body>
 <div class="top"><div class="topin">
-<div class="home-actions"><a class="home-link" href="index.html" aria-label="홈"><span class="home-icon" aria-hidden="true"></span></a></div>
+<div class="home-actions"><a class="home-link" href="index.html">홈</a></div>
 <div class="brand">에니어그램 1–9 유형별 핸드북</div>
 <div class="nav"><button data-nav="1" onclick="showType(1)">1</button><button data-nav="2" onclick="showType(2)">2</button><button data-nav="3" onclick="showType(3)">3</button><button data-nav="4" onclick="showType(4)">4</button><button data-nav="5" onclick="showType(5)">5</button><button data-nav="6" onclick="showType(6)">6</button><button data-nav="7" onclick="showType(7)">7</button><button data-nav="8" onclick="showType(8)">8</button><button data-nav="9" onclick="showType(9)">9</button><button class="active" data-nav="all" onclick="showAll()">전체</button></div>
 <button onclick="printCurrent()">현재 유형 인쇄</button>

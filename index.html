@@ -132,6 +132,13 @@
       font-size: clamp(42px, 7vw, 84px);
       line-height: .95;
       letter-spacing: -.055em;
+      color: var(--ink);
+      background: linear-gradient(100deg, #22211f 0%, #6f5841 24%, #526b60 48%, #8a6b39 72%, #22211f 100%);
+      background-size: 260% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: title-gradient 7s ease-in-out infinite;
     }
 
     .lead {
@@ -271,12 +278,18 @@
       background: #fff;
     }
 
+
+    @keyframes title-gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
     @keyframes home-rise {
       from { opacity: 0; transform: translateY(12px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     @media (prefers-reduced-motion: reduce) {
+      h1 { animation: none; background-position: 0% 50%; }
       .intro, .doc-card { animation: none; }
       .doc-card, .arrow, .doc-card::before { transition: none; }
     }
