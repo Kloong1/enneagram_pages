@@ -4893,10 +4893,18 @@ p.meaning-highlight,
 .section-nav-title{font-size:11px;font-weight:900;letter-spacing:.08em;color:var(--muted);margin-bottom:9px;text-transform:uppercase}
 .section-nav-current{font-size:16px;font-weight:900;letter-spacing:-.04em;margin-bottom:12px;line-height:1.35}
 .section-nav-list{display:grid;gap:5px}
-.section-nav-list a{display:block;text-decoration:none;color:var(--ink);border:1px solid transparent;border-radius:10px;padding:8px 9px;font-size:12px;font-weight:760;line-height:1.35;word-break:keep-all}
+.section-nav-list a{display:grid;grid-template-columns:34px minmax(0,1fr);gap:8px;align-items:start;text-decoration:none;color:var(--ink);border:1px solid transparent;border-radius:10px;padding:8px 9px;font-size:12px;font-weight:760;line-height:1.35;word-break:keep-all}
 .section-nav-list a:hover,.section-nav-list a:focus-visible{background:var(--soft);border-color:var(--line);outline:none}
 .section-nav-list a.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .section-nav-empty{font-size:12px;color:var(--muted);line-height:1.55;background:var(--soft);border-radius:12px;padding:10px}
+.home-actions{display:flex;gap:6px;align-items:center}
+.home-actions a,.home-actions button{font:inherit;border:1px solid var(--line);background:#fff;border-radius:999px;height:34px;padding:0 11px;color:var(--ink);text-decoration:none;font-size:12px;font-weight:850;cursor:pointer;white-space:nowrap}
+.section-nav-list a.depth-1{margin-top:6px;font-weight:900;background:#fff}
+.section-nav-list a.depth-2{grid-template-columns:44px minmax(0,1fr);padding-left:18px;font-size:11.5px;color:#4f4b46}
+.section-nav-list a.depth-3{grid-template-columns:52px minmax(0,1fr);padding-left:30px;font-size:11px;color:var(--muted)}
+.section-nav-num{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:900}
+.section-nav-text{min-width:0}
+.section-nav-list a.active .section-nav-num{color:#fff}
 @media(max-width:1023px){
   .worksheet-layout{display:block;max-width:none;padding:0}
   .worksheet-layout>.wrap{max-width:1180px;margin:0 auto;padding:28px 18px 72px}
@@ -4914,6 +4922,7 @@ p.meaning-highlight,
 </style></head>
 <body>
 <div class="top"><div class="topin">
+<div class="home-actions"><a href="index.html">← 홈</a><button type="button" onclick="history.back()">뒤로</button></div>
 <div class="brand">에니어그램 1–9 유형별 핸드북</div>
 <div class="nav"><button data-nav="1" onclick="showType(1)">1</button><button data-nav="2" onclick="showType(2)">2</button><button data-nav="3" onclick="showType(3)">3</button><button data-nav="4" onclick="showType(4)">4</button><button data-nav="5" onclick="showType(5)">5</button><button data-nav="6" onclick="showType(6)">6</button><button data-nav="7" onclick="showType(7)">7</button><button data-nav="8" onclick="showType(8)">8</button><button data-nav="9" onclick="showType(9)">9</button><button class="active" data-nav="all" onclick="showAll()">전체</button></div>
 <button onclick="printCurrent()">현재 유형 인쇄</button>
@@ -7759,24 +7768,36 @@ function printCurrent(){document.querySelectorAll('.type-page').forEach(s=>s.cla
     return active ? active.getAttribute('data-nav') : 'all';
   }
 
+  function cleanText(node){
+    return (node ? node.textContent : '').replace(/\s+/g,' ').trim();
+  }
+
+  function navNumber(head, fallback){
+    let n = cleanText(head.querySelector('.chapter-number, .subsection-no, .unified-subsection-badge, .section-no'));
+    if(/^0\d$/.test(n)) n = String(Number(n));
+    return n || fallback;
+  }
+
   function sectionItemsForType(type){
     if(type === 'all'){
       return Array.from(document.querySelectorAll('.type-page')).map(page => {
         const typeNo = page.dataset.type;
         const title = page.querySelector('.hero h2, header h2');
         if(!page.id) page.id = 'type-' + typeNo;
-        return { id: page.id, label: (typeNo ? typeNo + '. ' : '') + (title ? title.textContent.trim() : typeNames[typeNo] || '유형') };
+        return { id: page.id, number: typeNo, label: title ? cleanText(title) : typeNames[typeNo] || '유형', depth: 1 };
       });
     }
     const page = document.querySelector('.type-page[data-type="' + type + '"]');
     if(!page) return [];
-    const heads = Array.from(page.querySelectorAll('.chapter-head, .section-head, .group-head, .add-head')).filter(head => head.querySelector('h2,h3'));
-    const compact = heads.length ? heads : Array.from(page.querySelectorAll('.title')).filter(head => head.querySelector('h3'));
-    return compact.slice(0, 18).map((head, index) => {
+    const heads = Array.from(page.querySelectorAll('.chapter-head, .title, .section-head, .group-head, .add-head'))
+      .filter(head => head.querySelector('h2,h3'));
+    return heads.slice(0, 40).map((head, index) => {
       const h = head.querySelector('h2,h3');
       const target = head.closest('section, .block, .group-view, .read-first, .apply-section, .arrow-section') || head;
-      if(!target.id) target.id = slug(h.textContent, type + '-' + index);
-      return { id: target.id, label: h.textContent.trim() };
+      const number = navNumber(head, String(index + 1));
+      const depth = number.includes('.') ? Math.min(3, number.split('.').length) : 1;
+      if(!target.id) target.id = 'section-' + type + '-' + index;
+      return { id: target.id, number, label: cleanText(h), depth };
     });
   }
 
@@ -7785,9 +7806,8 @@ function printCurrent(){document.querySelectorAll('.type-page').forEach(s=>s.cla
     if(!items.length){
       return '<div class="section-nav-title">Contents</div><div class="section-nav-current">' + title + '</div><div class="section-nav-empty">이 유형 안에서 이동할 섹션을 찾지 못했습니다.</div>';
     }
-    return '<div class="section-nav-title">Contents</div><div class="section-nav-current">' + title + '</div><nav class="section-nav-list">' + items.map(item => '<a href="#' + item.id + '">' + item.label + '</a>').join('') + '</nav>';
+    return '<div class="section-nav-title">Contents</div><div class="section-nav-current">' + title + '</div><nav class="section-nav-list">' + items.map(item => '<a class="depth-' + item.depth + '" href="#' + item.id + '"><span class="section-nav-num">' + item.number + '</span><span class="section-nav-text">' + item.label + '</span></a>').join('') + '</nav>';
   }
-
   function refreshSectionNav(){
     const type = activeType();
     const items = sectionItemsForType(type);
