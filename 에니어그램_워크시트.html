@@ -4936,7 +4936,51 @@ p.meaning-highlight,
   .type-page .hero.hero-wide-copy{grid-template-columns:54px minmax(0,1fr) !important;gap:10px !important}
   .type-page .hero.hero-wide-copy .number{width:50px !important;height:50px !important;border-radius:15px !important;font-size:28px !important}
 }
-</style></head>
+</style>
+<style id="six-seven-easter-egg-style">
+.six-seven-egg{
+  position:fixed;inset:0;z-index:10000;display:grid;place-items:center;
+  pointer-events:none;opacity:0;background:rgba(32,32,32,.05);
+}
+.six-seven-egg.show{animation:six-seven-fade 1.9s ease both}
+.six-seven-pop{
+  display:flex;align-items:center;gap:12px;
+  filter:drop-shadow(0 22px 32px rgba(0,0,0,.28));
+  animation:six-seven-pop 1.9s cubic-bezier(.16,1.25,.28,1) both;
+}
+.six-seven-pop span{
+  width:104px;height:104px;border-radius:28px;display:grid;place-items:center;
+  font-size:62px;font-weight:950;letter-spacing:0;line-height:1;
+  background:#202020;color:#fff;border:1px solid rgba(255,255,255,.26);
+}
+.six-seven-pop span:nth-child(2){
+  background:#f7f2e4;color:#202020;border-color:#ded6c4;
+  animation:six-seven-wiggle .46s ease-in-out infinite alternate;
+}
+.six-seven-pop span:first-child{animation:six-seven-wiggle .42s ease-in-out infinite alternate-reverse}
+@keyframes six-seven-fade{
+  0%{opacity:0} 10%,78%{opacity:1} 100%{opacity:0}
+}
+@keyframes six-seven-pop{
+  0%{transform:translateY(36px) scale(.24) rotate(-10deg)}
+  28%{transform:translateY(-8px) scale(1.18) rotate(4deg)}
+  52%{transform:translateY(0) scale(.97) rotate(-2deg)}
+  100%{transform:translateY(0) scale(1) rotate(0)}
+}
+@keyframes six-seven-wiggle{
+  from{transform:translateY(-4px) rotate(-5deg)}
+  to{transform:translateY(4px) rotate(5deg)}
+}
+@media(max-width:560px){
+  .six-seven-pop{gap:8px}
+  .six-seven-pop span{width:76px;height:76px;border-radius:20px;font-size:46px}
+}
+@media(prefers-reduced-motion:reduce){
+  .six-seven-egg.show{animation:six-seven-fade 1.5s ease both}
+  .six-seven-pop,.six-seven-pop span{animation:none!important}
+}
+</style>
+</head>
 <body>
 <div class="top"><div class="topin">
 <div class="home-actions"><a class="home-link" href="index.html">홈</a></div>
@@ -7873,6 +7917,52 @@ function printCurrent(){document.querySelectorAll('.type-page').forEach(s=>s.cla
   window.addEventListener('scroll', highlightSection, { passive:true });
   window.addEventListener('resize', highlightSection);
   refreshSectionNav();
+})();
+</script>
+<script id="six-seven-easter-egg-script">
+(function(){
+  const pattern = ['6','7','6','7','6','7'];
+  let input = [];
+  let timer = null;
+
+  function ensureEgg(){
+    let egg = document.querySelector('.six-seven-egg');
+    if(egg) return egg;
+    egg = document.createElement('div');
+    egg.className = 'six-seven-egg';
+    egg.setAttribute('aria-hidden','true');
+    egg.innerHTML = '<div class="six-seven-pop"><span>6</span><span>7</span></div>';
+    document.body.appendChild(egg);
+    return egg;
+  }
+
+  function showEgg(){
+    const egg = ensureEgg();
+    window.clearTimeout(timer);
+    egg.classList.remove('show');
+    void egg.offsetWidth;
+    egg.classList.add('show');
+    timer = window.setTimeout(() => egg.classList.remove('show'), 1950);
+  }
+
+  function record(value){
+    if(value !== '6' && value !== '7'){
+      input = [];
+      return;
+    }
+    input.push(value);
+    input = input.slice(-pattern.length);
+    if(input.length === pattern.length && pattern.every((v, i) => input[i] === v)){
+      input = [];
+      showEgg();
+    }
+  }
+
+  document.addEventListener('click', event => {
+    const target = event.target.closest('[data-tab],[data-nav]');
+    if(!target) return;
+    record(target.getAttribute('data-tab') || target.getAttribute('data-nav'));
+  });
 })();
 </script>
 </body></html>
