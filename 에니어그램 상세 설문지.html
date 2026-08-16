@@ -195,45 +195,108 @@ button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:point
 </style>
 <style id="six-seven-easter-egg-style">
 .six-seven-egg{
-  position:fixed;inset:0;z-index:10000;display:grid;place-items:center;
-  pointer-events:none;opacity:0;background:rgba(32,32,32,.05);
+  position:fixed;inset:0;z-index:10000;overflow:hidden;display:block;
+  pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 50%, rgba(255,255,255,.36), rgba(32,32,32,.10) 54%, rgba(32,32,32,.20));
 }
-.six-seven-egg.show{animation:six-seven-fade 1.9s ease both}
+.six-seven-egg.show{animation:six-seven-fade 3.25s ease both}
+.six-seven-stage{position:absolute;inset:0;transform-origin:center;animation:six-seven-stage-spin 3.25s cubic-bezier(.2,.85,.25,1) both}
 .six-seven-pop{
-  display:flex;align-items:center;gap:12px;
-  filter:drop-shadow(0 22px 32px rgba(0,0,0,.28));
-  animation:six-seven-pop 1.9s cubic-bezier(.16,1.25,.28,1) both;
+  position:absolute;left:50%;top:50%;display:flex;align-items:center;gap:clamp(10px,2.5vw,24px);
+  transform:translate(-50%,-50%);filter:drop-shadow(0 28px 36px rgba(0,0,0,.32));
+  animation:six-seven-center-chaos 3.25s cubic-bezier(.16,1.18,.22,1) both;
 }
-.six-seven-pop span{
-  width:104px;height:104px;border-radius:28px;display:grid;place-items:center;
-  font-size:62px;font-weight:950;letter-spacing:0;line-height:1;
-  background:#202020;color:#fff;border:1px solid rgba(255,255,255,.26);
+.six-seven-pop span,.six-seven-digit{
+  display:grid;place-items:center;border-radius:clamp(18px,4vw,36px);font-weight:950;letter-spacing:0;line-height:1;
+  border:1px solid rgba(255,255,255,.34);box-shadow:0 20px 54px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.32);
 }
-.six-seven-pop span:nth-child(2){
-  background:#f7f2e4;color:#202020;border-color:#ded6c4;
-  animation:six-seven-wiggle .46s ease-in-out infinite alternate;
+.six-seven-pop span{width:clamp(92px,18vw,190px);height:clamp(92px,18vw,190px);font-size:clamp(58px,12vw,128px)}
+.six-seven-pop span:first-child,.six-seven-digit.is-six{background:#202020;color:#fff}
+.six-seven-pop span:nth-child(2),.six-seven-digit.is-seven{background:#f7f2e4;color:#202020;border-color:#ded6c4}
+.six-seven-pop span:first-child{animation:six-seven-wiggle .18s ease-in-out infinite alternate-reverse}
+.six-seven-pop span:nth-child(2){animation:six-seven-wiggle .16s ease-in-out infinite alternate}
+.six-seven-digit{
+  position:absolute;left:50%;top:50%;width:clamp(54px,10vw,118px);height:clamp(54px,10vw,118px);font-size:clamp(34px,7vw,78px);
+  --x:0vw;--y:0vh;--r:0deg;--s:1;
+  animation:six-seven-fly 3.25s cubic-bezier(.13,.9,.18,1) both;
 }
-.six-seven-pop span:first-child{animation:six-seven-wiggle .42s ease-in-out infinite alternate-reverse}
-@keyframes six-seven-fade{
-  0%{opacity:0} 10%,78%{opacity:1} 100%{opacity:0}
+.six-seven-confetti,.six-seven-spark,.six-seven-bomb,.six-seven-shock{
+  position:absolute;left:50%;top:50%;display:block;pointer-events:none;
 }
-@keyframes six-seven-pop{
-  0%{transform:translateY(36px) scale(.24) rotate(-10deg)}
-  28%{transform:translateY(-8px) scale(1.18) rotate(4deg)}
-  52%{transform:translateY(0) scale(.97) rotate(-2deg)}
-  100%{transform:translateY(0) scale(1) rotate(0)}
+.six-seven-confetti{
+  width:10px;height:18px;border-radius:3px;background:var(--c,#d94f3d);
+  --x:0vw;--y:0vh;--r:0deg;
+  animation:six-seven-confetti 3.1s cubic-bezier(.14,.82,.22,1) both;
 }
-@keyframes six-seven-wiggle{
-  from{transform:translateY(-4px) rotate(-5deg)}
-  to{transform:translateY(4px) rotate(5deg)}
+.six-seven-spark{
+  width:16px;height:16px;border-radius:999px;background:var(--c,#f0b63c);box-shadow:0 0 0 7px rgba(240,182,60,.24),0 0 34px var(--c,#f0b63c);
+  --x:0vw;--y:0vh;
+  animation:six-seven-spark 1.45s ease-out both;
 }
+.six-seven-bomb{
+  width:clamp(58px,11vw,122px);height:clamp(58px,11vw,122px);border-radius:999px;background:#1f1f1f;
+  transform:translate(-50%,-50%);box-shadow:inset -14px -18px 0 rgba(0,0,0,.28),0 18px 34px rgba(0,0,0,.28);
+  --x:0vw;--y:0vh;--delay:.1s;
+  animation:six-seven-bomb 3.1s ease both;animation-delay:var(--delay);
+}
+.six-seven-bomb::before{content:"";position:absolute;right:7%;top:-20%;width:28%;height:30%;border-radius:50% 50% 0 0;border-top:6px solid #202020;transform:rotate(28deg)}
+.six-seven-bomb::after{content:"";position:absolute;right:-12%;top:-26%;width:36%;height:36%;border-radius:999px;background:radial-gradient(circle,#fff 0 14%,#ffd65a 15% 36%,#ef7138 37% 62%,transparent 63%);animation:six-seven-fuse .22s steps(2,end) infinite}
+.six-seven-shock{
+  width:28px;height:28px;border-radius:999px;border:4px solid rgba(239,113,56,.72);
+  transform:translate(-50%,-50%) scale(.15);--x:0vw;--y:0vh;--delay:.45s;
+  animation:six-seven-shock 1.15s ease-out both;animation-delay:var(--delay);
+}
+.six-seven-flash{position:absolute;inset:0;background:rgba(255,245,210,.0);animation:six-seven-flash 3.25s ease both}
+@keyframes six-seven-fade{0%{opacity:0}4%,88%{opacity:1}100%{opacity:0}}
+@keyframes six-seven-stage-spin{0%{transform:scale(.9) rotate(0)}42%{transform:scale(1.03) rotate(1.6deg)}74%{transform:scale(1) rotate(-1.2deg)}100%{transform:scale(1) rotate(0)}}
+@keyframes six-seven-center-chaos{
+  0%{transform:translate(-50%,-50%) scale(.16) rotate(-18deg)}
+  15%{transform:translate(-50%,-58%) scale(1.25) rotate(9deg)}
+  28%{transform:translate(-50%,-42%) scale(.92) rotate(-8deg)}
+  42%{transform:translate(-50%,-56%) scale(1.12) rotate(12deg)}
+  58%{transform:translate(-50%,-45%) scale(1.04) rotate(-11deg)}
+  76%{transform:translate(-50%,-53%) scale(1.16) rotate(6deg)}
+  100%{transform:translate(-50%,-50%) scale(.82) rotate(0)}
+}
+@keyframes six-seven-wiggle{from{transform:translate(-10px,-8px) rotate(-9deg)}to{transform:translate(10px,8px) rotate(9deg)}}
+@keyframes six-seven-fly{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.1) rotate(0)}
+  12%{opacity:1}
+  48%{transform:translate(calc(-50% + var(--x) * .76),calc(-50% + var(--y) * .76)) scale(calc(var(--s) * 1.2)) rotate(calc(var(--r) * .65))}
+  82%{opacity:1;transform:translate(calc(-50% - var(--x) * .34),calc(-50% - var(--y) * .34)) scale(var(--s)) rotate(calc(var(--r) * -1))}
+  100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(.18) rotate(var(--r))}
+}
+@keyframes six-seven-confetti{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(0)}
+  8%{opacity:1}
+  78%{opacity:1}
+  100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(1) rotate(var(--r))}
+}
+@keyframes six-seven-spark{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.15)}
+  12%{opacity:1}
+  100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(2.6)}
+}
+@keyframes six-seven-bomb{
+  0%{opacity:0;transform:translate(-50%,-80vh) scale(.45) rotate(-20deg)}
+  26%{opacity:1;transform:translate(calc(-50% + var(--x) * .55),calc(-50% + var(--y) * .55)) scale(1.05) rotate(18deg)}
+  42%{opacity:1;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(.9) rotate(-8deg)}
+  50%,100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(2.4) rotate(22deg)}
+}
+@keyframes six-seven-shock{
+  0%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(.15)}
+  16%{opacity:1}
+  100%{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(12)}
+}
+@keyframes six-seven-fuse{0%{transform:scale(.86) rotate(0)}100%{transform:scale(1.15) rotate(40deg)}}
+@keyframes six-seven-flash{0%,30%,52%,74%,100%{background:rgba(255,245,210,0)}36%,58%,80%{background:rgba(255,245,210,.44)}}
 @media(max-width:560px){
-  .six-seven-pop{gap:8px}
-  .six-seven-pop span{width:76px;height:76px;border-radius:20px;font-size:46px}
+  .six-seven-confetti{width:8px;height:14px}
+  .six-seven-bomb{width:58px;height:58px}
 }
 @media(prefers-reduced-motion:reduce){
-  .six-seven-egg.show{animation:six-seven-fade 1.5s ease both}
-  .six-seven-pop,.six-seven-pop span{animation:none!important}
+  .six-seven-egg.show{animation:six-seven-fade 1.4s ease both}
+  .six-seven-stage,.six-seven-pop,.six-seven-pop span,.six-seven-digit,.six-seven-confetti,.six-seven-spark,.six-seven-bomb,.six-seven-shock,.six-seven-flash{animation:none!important}
+  .six-seven-egg.show{opacity:1}
 }
 </style>
 </head>
@@ -520,27 +583,72 @@ calculate();
 <script id="six-seven-easter-egg-script">
 (function(){
   const pattern = ['6','7','6','7','6','7'];
+  const digitMoves = [
+    ['6',-46,-38,-720,1.05],['7',42,-34,680,.98],['6',-35,28,540,.82],['7',36,30,-620,.9],
+    ['6',-10,-46,760,.72],['7',12,43,-700,.78],['6',-52,2,-520,.65],['7',52,5,600,.7],
+    ['6',-24,48,480,.58],['7',25,-48,-560,.62],['6',-5,18,820,.5],['7',6,-18,-820,.52]
+  ];
+  const confettiColors = ['#e6503c','#f1b73c','#526b60','#5267b8','#f7f2e4','#202020'];
   let input = [];
   let timer = null;
 
-  function ensureEgg(){
-    let egg = document.querySelector('.six-seven-egg');
-    if(egg) return egg;
-    egg = document.createElement('div');
+  function make(tag, className, style, text){
+    const el = document.createElement(tag);
+    el.className = className;
+    if(style) el.setAttribute('style', style);
+    if(text) el.textContent = text;
+    return el;
+  }
+
+  function buildEgg(){
+    const egg = document.createElement('div');
     egg.className = 'six-seven-egg';
     egg.setAttribute('aria-hidden','true');
-    egg.innerHTML = '<div class="six-seven-pop"><span>6</span><span>7</span></div>';
-    document.body.appendChild(egg);
+    const stage = make('div','six-seven-stage');
+    stage.appendChild(make('div','six-seven-flash'));
+    const pop = make('div','six-seven-pop');
+    pop.innerHTML = '<span>6</span><span>7</span>';
+    stage.appendChild(pop);
+
+    digitMoves.forEach(([text,x,y,r,s], i) => {
+      stage.appendChild(make('span','six-seven-digit ' + (text === '6' ? 'is-six' : 'is-seven'), `--x:${x}vw;--y:${y}vh;--r:${r}deg;--s:${s};animation-delay:${(i%4)*.04}s`, text));
+    });
+
+    for(let i = 0; i < 46; i += 1){
+      const angle = (Math.PI * 2 * i) / 46;
+      const distance = 34 + (i % 7) * 8;
+      const x = Math.cos(angle) * distance;
+      const y = Math.sin(angle) * distance;
+      const color = confettiColors[i % confettiColors.length];
+      stage.appendChild(make('i','six-seven-confetti', `--x:${x.toFixed(1)}vw;--y:${y.toFixed(1)}vh;--r:${(i*73)%720 - 360}deg;--c:${color};animation-delay:${(i%9)*.025}s`));
+    }
+
+    [[-30,-20,.42],[30,-18,.62],[-24,24,.82],[26,24,1.02]].forEach(([x,y,delay]) => {
+      stage.appendChild(make('i','six-seven-bomb', `--x:${x}vw;--y:${y}vh;--delay:${delay}s`));
+      stage.appendChild(make('i','six-seven-shock', `--x:${x}vw;--y:${y}vh;--delay:${delay + .48}s`));
+    });
+
+    for(let i = 0; i < 22; i += 1){
+      const angle = (Math.PI * 2 * i) / 22;
+      const distance = 18 + (i % 5) * 7;
+      const x = Math.cos(angle) * distance;
+      const y = Math.sin(angle) * distance;
+      const color = confettiColors[(i + 2) % confettiColors.length];
+      stage.appendChild(make('i','six-seven-spark', `--x:${x.toFixed(1)}vw;--y:${y.toFixed(1)}vh;--c:${color};animation-delay:${.22 + (i%6)*.06}s`));
+    }
+
+    egg.appendChild(stage);
     return egg;
   }
 
   function showEgg(){
-    const egg = ensureEgg();
+    const old = document.querySelector('.six-seven-egg');
+    if(old) old.remove();
+    const egg = buildEgg();
+    document.body.appendChild(egg);
     window.clearTimeout(timer);
-    egg.classList.remove('show');
-    void egg.offsetWidth;
-    egg.classList.add('show');
-    timer = window.setTimeout(() => egg.classList.remove('show'), 1950);
+    requestAnimationFrame(() => egg.classList.add('show'));
+    timer = window.setTimeout(() => egg.remove(), 3400);
   }
 
   function record(value){
