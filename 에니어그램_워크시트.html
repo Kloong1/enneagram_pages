@@ -4868,6 +4868,34 @@ p.meaning-highlight,
     line-height:1.72 !important;
   }
 }
+</style><style id="type-section-navigation">
+.section-menu-toggle,
+.section-drawer,
+.section-drawer-backdrop{display:none}
+.worksheet-layout{max-width:1420px;margin:0 auto;padding:0 18px;display:grid;grid-template-columns:220px minmax(0,1180px);gap:18px;align-items:start}
+.worksheet-layout>.wrap{width:100%;max-width:none;margin:0;padding:28px 0 72px}
+.section-sidebar{position:sticky;top:72px;max-height:calc(100vh - 92px);overflow:auto;margin-top:28px;background:rgba(255,254,250,.94);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:0 8px 30px rgba(0,0,0,.035)}
+.section-nav-title{font-size:11px;font-weight:900;letter-spacing:.08em;color:var(--muted);margin-bottom:9px;text-transform:uppercase}
+.section-nav-current{font-size:16px;font-weight:900;letter-spacing:-.04em;margin-bottom:12px;line-height:1.35}
+.section-nav-list{display:grid;gap:5px}
+.section-nav-list a{display:block;text-decoration:none;color:var(--ink);border:1px solid transparent;border-radius:10px;padding:8px 9px;font-size:12px;font-weight:760;line-height:1.35;word-break:keep-all}
+.section-nav-list a:hover,.section-nav-list a:focus-visible{background:var(--soft);border-color:var(--line);outline:none}
+.section-nav-list a.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.section-nav-empty{font-size:12px;color:var(--muted);line-height:1.55;background:var(--soft);border-radius:12px;padding:10px}
+@media(max-width:1023px){
+  .worksheet-layout{display:block;max-width:none;padding:0}
+  .worksheet-layout>.wrap{max-width:1180px;margin:0 auto;padding:28px 18px 72px}
+  .section-sidebar{display:none}
+  .section-menu-toggle{display:inline-flex;position:fixed;right:14px;bottom:14px;z-index:80;align-items:center;gap:8px;height:42px;border:1px solid var(--line);border-radius:999px;background:var(--ink);color:#fff;padding:0 14px;font-size:13px;font-weight:900;box-shadow:0 12px 28px rgba(0,0,0,.22)}
+  .section-menu-toggle .bars{font-size:18px;line-height:1;margin-top:-1px}
+  .section-drawer-backdrop.open{display:block;position:fixed;inset:0;z-index:88;background:rgba(0,0,0,.28)}
+  .section-drawer{display:block;position:fixed;top:0;bottom:0;left:0;z-index:89;width:min(82vw,320px);background:var(--paper);border-right:1px solid var(--line);padding:18px;box-shadow:16px 0 44px rgba(0,0,0,.18);transform:translateX(-102%);transition:transform .18s ease;overflow:auto}
+  .section-drawer.open{transform:translateX(0)}
+  .section-drawer-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .section-drawer-head strong{font-size:15px;letter-spacing:-.03em}
+  .section-drawer-close{width:34px;height:34px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:18px;line-height:1}
+}
+@media print{.section-sidebar,.section-menu-toggle,.section-drawer,.section-drawer-backdrop{display:none!important}.worksheet-layout{display:block;max-width:none;padding:0}.worksheet-layout>.wrap{max-width:none;padding:0}}
 </style></head>
 <body>
 <div class="top"><div class="topin">
@@ -4875,7 +4903,7 @@ p.meaning-highlight,
 <div class="nav"><button data-nav="1" onclick="showType(1)">1</button><button data-nav="2" onclick="showType(2)">2</button><button data-nav="3" onclick="showType(3)">3</button><button data-nav="4" onclick="showType(4)">4</button><button data-nav="5" onclick="showType(5)">5</button><button data-nav="6" onclick="showType(6)">6</button><button data-nav="7" onclick="showType(7)">7</button><button data-nav="8" onclick="showType(8)">8</button><button data-nav="9" onclick="showType(9)">9</button><button class="active" data-nav="all" onclick="showAll()">전체</button></div>
 <button onclick="printCurrent()">현재 유형 인쇄</button>
 </div></div>
-<main class="wrap">
+<button type="button" class="section-menu-toggle" id="sectionMenuToggle" aria-controls="sectionDrawer" aria-expanded="false"><span class="bars" aria-hidden="true">☰</span><span>목차</span></button><div class="section-drawer-backdrop" id="sectionDrawerBackdrop"></div><aside class="section-drawer" id="sectionDrawer" aria-label="현재 유형 목차"><div class="section-drawer-head"><strong>현재 유형 목차</strong><button type="button" class="section-drawer-close" id="sectionDrawerClose" aria-label="목차 닫기">×</button></div><div id="sectionDrawerNav"></div></aside><div class="worksheet-layout"><aside class="section-sidebar" aria-label="현재 유형 목차"><div id="sectionSidebarNav"></div></aside><main class="wrap" id="worksheetContent">
 <section class="type-page" data-type="1" id="type-1">
 <header class="hero-wide-copy hero">
 <div class="number">1</div>
@@ -7687,6 +7715,7 @@ p.meaning-highlight,
 <div class="action-list"><div class="action">1. 평화를 위해 무조건 맞춰 주기보다 내가 정말 동의하는지 먼저 확인하고, 원하지 않는 일에는 의사를 표현하기</div><div class="action">2. 공상이나 무관심 속으로 빠지지 말고 주변에서 일어나는 일에 관심을 두며 작은 일부터 능동적으로 참여하기</div><div class="action">3. 분노·불안·불편함도 내 감정의 일부임을 인정하고, 엉뚱한 곳에서 터지기 전에 무엇이 불편한지 알아차리기</div><div class="action">4. 규칙적으로 몸을 움직이며 감각과 감정을 깨우고, 몸에 쌓인 긴장과 억눌린 에너지를 건강하게 풀기</div><div class="action">5. 두통·긴장·울컥함처럼 몸으로 나타나는 신호를 무시하지 말고, 눌러 둔 감정이 무엇인지 살펴보기</div><div class="action">6. 관계가 깨질까 두려워 침묵하지 말고, 믿을 만한 사람에게 분노·두려움·욕구를 솔직하게 표현하기</div><div class="action">7. 사람을 편안하게 받아들이는 강점을 유지하되, 듣기만 하는 사람에 머물지 말고 내 생각과 필요도 함께 관계 안에 가져오기</div></div>
 </section></div></section><footer>TYPE 9 · 평화주의자　|　리소–허드슨 체계 기반 강의용 요약 자료</footer></section>
 </main>
+</div>
 <div class="source"><b>구성 기준</b> · 핵심 유형 구조, 기본 두려움·욕망, 날개, 본능 변형, 통합·비통합 방향, 발달 수준과 대상관계 정서는 리소–허드슨의 체계를 중심으로 정리했습니다. 도흥찬의 유형별 『에니어그램 ○번 유형의 모든 것』 시리즈 및 러너코리아 강의에서 확인되는 ‘내 성격대로 살기’, ‘성장 키워드’, ‘성격 이것만 고치면’, 코칭·소통·현장 활용의 구성도 참고했습니다. 수퍼에고 메시지는 리소–허드슨 계열에서 제시하는 유형별 조건부 자기 가치 메시지를 강의용 한국어로 의역했습니다. 설명 문장은 워크숍 자료에 맞게 요약·재구성했으며 원문을 그대로 옮기지 않았습니다. 시간·돈·연애·양육·직업·면접·리더십·MBTI는 유형의 필수 진단 기준이 아니라 핵심 동기를 생활 장면에 적용한 해석입니다.</div>
 <script>
 let current='all';
@@ -7694,5 +7723,104 @@ function setNav(k){document.querySelectorAll('[data-nav]').forEach(x=>x.classLis
 function showType(n){current=String(n);document.querySelectorAll('.type-page').forEach(s=>s.classList.toggle('hidden',s.dataset.type!==String(n)));setNav(n);window.scrollTo({top:0,behavior:'smooth'})}
 function showAll(){current='all';document.querySelectorAll('.type-page').forEach(s=>s.classList.remove('hidden','print-target'));document.body.classList.remove('print-one');setNav('all')}
 function printCurrent(){document.querySelectorAll('.type-page').forEach(s=>s.classList.remove('print-target'));if(current==='all')document.body.classList.remove('print-one');else{document.body.classList.add('print-one');document.querySelector('[data-type="'+current+'"]').classList.add('print-target')}window.print();setTimeout(()=>{document.body.classList.remove('print-one');document.querySelectorAll('.type-page').forEach(s=>s.classList.remove('print-target'))},250)}
+</script>
+<script id="type-section-navigation-script">
+(function(){
+  const typeNames = {1:'1번 유형',2:'2번 유형',3:'3번 유형',4:'4번 유형',5:'5번 유형',6:'6번 유형',7:'7번 유형',8:'8번 유형',9:'9번 유형'};
+  const sidebar = document.getElementById('sectionSidebarNav');
+  const drawerNav = document.getElementById('sectionDrawerNav');
+  const drawer = document.getElementById('sectionDrawer');
+  const backdrop = document.getElementById('sectionDrawerBackdrop');
+  const toggle = document.getElementById('sectionMenuToggle');
+  const close = document.getElementById('sectionDrawerClose');
+  let navTargets = [];
+
+  function slug(text, fallback){
+    return 'section-' + fallback + '-' + String(text || '').trim().replace(/\s+/g,'-').replace(/[^0-9A-Za-z_-]/g,'').slice(0,28);
+  }
+
+  function activeType(){
+    const active = document.querySelector('[data-nav].active');
+    return active ? active.getAttribute('data-nav') : 'all';
+  }
+
+  function sectionItemsForType(type){
+    if(type === 'all'){
+      return Array.from(document.querySelectorAll('.type-page')).map(page => {
+        const typeNo = page.dataset.type;
+        const title = page.querySelector('.hero h2, header h2');
+        if(!page.id) page.id = 'type-' + typeNo;
+        return { id: page.id, label: (typeNo ? typeNo + '. ' : '') + (title ? title.textContent.trim() : typeNames[typeNo] || '유형') };
+      });
+    }
+    const page = document.querySelector('.type-page[data-type="' + type + '"]');
+    if(!page) return [];
+    const heads = Array.from(page.querySelectorAll('.chapter-head, .section-head, .group-head, .add-head')).filter(head => head.querySelector('h2,h3'));
+    const compact = heads.length ? heads : Array.from(page.querySelectorAll('.title')).filter(head => head.querySelector('h3'));
+    return compact.slice(0, 18).map((head, index) => {
+      const h = head.querySelector('h2,h3');
+      const target = head.closest('section, .block, .group-view, .read-first, .apply-section, .arrow-section') || head;
+      if(!target.id) target.id = slug(h.textContent, type + '-' + index);
+      return { id: target.id, label: h.textContent.trim() };
+    });
+  }
+
+  function navHTML(type, items){
+    const title = type === 'all' ? '전체 유형' : (typeNames[type] || type + '번 유형');
+    if(!items.length){
+      return '<div class="section-nav-title">Contents</div><div class="section-nav-current">' + title + '</div><div class="section-nav-empty">이 유형 안에서 이동할 섹션을 찾지 못했습니다.</div>';
+    }
+    return '<div class="section-nav-title">Contents</div><div class="section-nav-current">' + title + '</div><nav class="section-nav-list">' + items.map(item => '<a href="#' + item.id + '">' + item.label + '</a>').join('') + '</nav>';
+  }
+
+  function refreshSectionNav(){
+    const type = activeType();
+    const items = sectionItemsForType(type);
+    navTargets = items.map(item => document.getElementById(item.id)).filter(Boolean);
+    const html = navHTML(type, items);
+    if(sidebar) sidebar.innerHTML = html;
+    if(drawerNav) drawerNav.innerHTML = html;
+    highlightSection();
+  }
+
+  function highlightSection(){
+    if(!navTargets.length) return;
+    let currentTarget = navTargets[0];
+    const threshold = 130;
+    navTargets.forEach(target => {
+      if(target.getBoundingClientRect().top <= threshold) currentTarget = target;
+    });
+    document.querySelectorAll('.section-nav-list a').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + currentTarget.id);
+    });
+  }
+
+  function openDrawer(){
+    if(drawer) drawer.classList.add('open');
+    if(backdrop) backdrop.classList.add('open');
+    if(toggle) toggle.setAttribute('aria-expanded','true');
+  }
+
+  function closeDrawer(){
+    if(drawer) drawer.classList.remove('open');
+    if(backdrop) backdrop.classList.remove('open');
+    if(toggle) toggle.setAttribute('aria-expanded','false');
+  }
+
+  const previousShowType = window.showType;
+  const previousShowAll = window.showAll;
+  window.showType = function(n){ previousShowType(n); refreshSectionNav(); closeDrawer(); };
+  window.showAll = function(){ previousShowAll(); refreshSectionNav(); closeDrawer(); };
+
+  document.addEventListener('click', event => {
+    if(event.target.closest('.section-nav-list a')) closeDrawer();
+  });
+  if(toggle) toggle.addEventListener('click', openDrawer);
+  if(close) close.addEventListener('click', closeDrawer);
+  if(backdrop) backdrop.addEventListener('click', closeDrawer);
+  window.addEventListener('scroll', highlightSection, { passive:true });
+  window.addEventListener('resize', highlightSection);
+  refreshSectionNav();
+})();
 </script>
 </body></html>

@@ -43,55 +43,13 @@
       padding: 34px 0 42px;
       display: grid;
       align-content: center;
-      gap: 28px;
+      gap: 24px;
     }
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-    }
 
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 900;
-      letter-spacing: -.03em;
-    }
 
-    .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      background: var(--ink);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 900;
-    }
 
-    .mini-nav {
-      display: flex;
-      gap: 7px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-    }
 
-    .mini-nav a,
-    .action {
-      text-decoration: none;
-      color: var(--ink);
-      border: 1px solid var(--line);
-      background: rgb(255 254 250 / 78%);
-      border-radius: 999px;
-      padding: 7px 12px;
-      font-size: 12px;
-      font-weight: 800;
-      backdrop-filter: blur(10px);
-    }
 
     .hero {
       display: grid;
@@ -108,7 +66,7 @@
       box-shadow: var(--shadow);
       display: grid;
       align-content: space-between;
-      min-height: 560px;
+      min-height: 500px;
       position: relative;
       overflow: hidden;
     }
@@ -180,45 +138,9 @@
       gap: 14px;
     }
 
-    .map {
-      background: var(--ink);
-      color: #fff;
-      border-radius: 24px;
-      padding: 26px;
-      min-height: 248px;
-      display: grid;
-      align-content: space-between;
-      box-shadow: var(--shadow);
-    }
 
-    .map-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      align-items: start;
-      color: #d7d2ca;
-      font-size: 12px;
-      font-weight: 850;
-      letter-spacing: .1em;
-    }
 
-    .numbers {
-      display: grid;
-      grid-template-columns: repeat(9, 1fr);
-      gap: 6px;
-      margin-top: 28px;
-    }
 
-    .numbers span {
-      aspect-ratio: 1;
-      border: 1px solid rgb(255 255 255 / 16%);
-      border-radius: 11px;
-      display: grid;
-      place-items: center;
-      background: rgb(255 255 255 / 7%);
-      font-size: clamp(18px, 3vw, 28px);
-      font-weight: 900;
-    }
 
     .cards {
       display: grid;
@@ -293,34 +215,9 @@
       font-weight: 900;
     }
 
-    .note {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 10px;
-      margin-top: 4px;
-    }
 
-    .note div {
-      min-height: 86px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px;
-      background: var(--soft);
-    }
 
-    .note b {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 12px;
-    }
 
-    .note p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.55;
-      word-break: keep-all;
-    }
 
     footer {
       color: #8b867e;
@@ -335,9 +232,6 @@
         align-content: start;
       }
 
-      header {
-        align-items: flex-start;
-      }
 
       .hero {
         grid-template-columns: 1fr;
@@ -347,9 +241,6 @@
         min-height: 420px;
       }
 
-      .numbers {
-        grid-template-columns: repeat(3, 1fr);
-      }
     }
 
     @media (max-width: 560px) {
@@ -357,18 +248,8 @@
         width: min(100% - 18px, 680px);
       }
 
-      header {
-        display: grid;
-      }
 
-      .mini-nav {
-        justify-content: flex-start;
-      }
 
-      .intro,
-      .map {
-        border-radius: 18px;
-      }
 
       .doc-card {
         grid-template-columns: auto 1fr;
@@ -380,24 +261,11 @@
         justify-self: end;
       }
 
-      .note {
-        grid-template-columns: 1fr;
-      }
     }
   </style>
 </head>
 <body>
   <main class="shell">
-    <header>
-      <div class="brand">
-        <span class="brand-mark">9</span>
-        <span>Enneagram Pages</span>
-      </div>
-      <nav class="mini-nav" aria-label="빠른 이동">
-        <a href="에니어그램 상세 설문지.html">설문지</a>
-        <a href="에니어그램_워크시트.html">워크시트</a>
-      </nav>
-    </header>
 
     <section class="hero" aria-labelledby="page-title">
       <div class="intro">
@@ -414,15 +282,6 @@
       </div>
 
       <div class="panel">
-        <section class="map" aria-label="에니어그램 9개 유형">
-          <div class="map-top">
-            <span>9 TYPES</span>
-            <span>READ · SCORE · APPLY</span>
-          </div>
-          <div class="numbers" aria-hidden="true">
-            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
-          </div>
-        </section>
 
         <nav class="cards" aria-label="에니어그램 문서">
           <a class="doc-card primary" href="에니어그램 상세 설문지.html">
@@ -441,22 +300,15 @@
             </span>
             <span class="arrow" aria-hidden="true">→</span>
           </a>
+          <a class="doc-card" href="에니어그램_나눔.html">
+            <span class="step">03</span>
+            <span class="doc-copy">
+              <strong>나눔 가이드</strong>
+              <span>유형을 비춰 보는 질문과 대화 흐름을 따라 나눕니다.</span>
+            </span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </a>
         </nav>
-      </div>
-    </section>
-
-    <section class="note" aria-label="사용 흐름">
-      <div>
-        <b>1. 응답</b>
-        <p>떠오르는 이상형보다 평소 반복되는 반응을 기준으로 체크합니다.</p>
-      </div>
-      <div>
-        <b>2. 비교</b>
-        <p>가장 높은 유형뿐 아니라 비슷한 점수의 후보도 함께 봅니다.</p>
-      </div>
-      <div>
-        <b>3. 적용</b>
-        <p>워크시트에서 관계, 일, 성장 방향으로 구체화합니다.</p>
       </div>
     </section>
 
