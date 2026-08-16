@@ -189,8 +189,12 @@ button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:point
   .q-card,.result-card{break-inside:avoid}
   .summary{background:#fff;color:#222;border:1px solid #ddd;box-shadow:none}
 }
-.home-actions{display:flex;align-items:center;margin:0 0 16px}
-.home-link{height:36px;padding:0 13px;border:1px solid var(--line);border-radius:999px;background:#fff;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.hero-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.hero-heading h1{min-width:0}
+.home-actions{display:flex;align-items:center;margin:0}
+.hero .home-actions{flex:0 0 auto;margin-top:2px}
+.home-link{height:32px;padding:0 12px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--sub);display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-size:12px;font-weight:800;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+@media(max-width:700px){.hero-heading{align-items:flex-start}.hero .home-actions{margin-top:1px}.home-link{height:30px;padding:0 11px}}
 @media print{.home-actions{display:none!important}}
 </style>
 <style id="six-seven-easter-egg-style">
@@ -302,9 +306,11 @@ button{border:0;border-radius:10px;padding:9px 13px;font-weight:800;cursor:point
 </head>
 <body>
 <div class="wrap">
-<div class="home-actions"><a class="home-link" href="index.html">홈</a></div>
   <header class="hero">
-    <h1>에니어그램 1~9번 유형 체크</h1>
+    <div class="hero-heading">
+      <h1>에니어그램 1~9번 유형 체크</h1>
+      <div class="home-actions"><a class="home-link" href="index.html">홈</a></div>
+    </div>
     <p>각 문항에서 나와 가까운 정도를 1~5점으로 선택하세요. 유형별 총점과 책의 점수 해석을 자동으로 보여줍니다.</p>
     <span class="count">총 135문항 · 유형별 15문항 · 최대 75점</span>
   </header>
